@@ -7,6 +7,28 @@
     <title>Prueba de la API Ghibli</title>
 </head>
 <body>
-    
+    <h1>Títulos de peliculas del Studio Ghibli</h1>
+    <ul id="results"></ul>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var resultado = document.querySelector("#results");
+            resultado.textContent = "";
+            fetch('https://ghibliapi.herokuapp.com/films/')
+            .then(function(response) {
+                if(!response.ok) {
+                    throw new Error(response.statusText);
+                }
+                return response.json();
+            })
+            .then(function(responseAsObject) {
+                for (var i=0; i<responseAsObject.length; i++){
+                    resultado.innerHTML += `<li>${responseAsObject[i].title}</li>`
+                }
+            })
+            .catch(function(error) {
+                console.log('Ha habido un problema: ', error);
+            });
+        });
+    </script>
 </body>
 </html>
