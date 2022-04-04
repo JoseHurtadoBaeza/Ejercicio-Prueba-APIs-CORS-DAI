@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prueba de la API Ghibli</title>
+    <title>Prueba de la API Public Holiday</title>
 </head>
 <body>
-    <h1>Títulos de peliculas del Studio Ghibli</h1>
+    <h1>Fechas de festivos de España en el año 2022</h1>
     <ul id="results"></ul>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var resultado = document.querySelector("#results");
             resultado.textContent = "";
-            fetch('https://ghibliapi.herokuapp.com/films/')
+            fetch('https://date.nager.at/api/v3/publicholidays/2022/ES')
             .then(function(response) {
                 if(!response.ok) {
                     throw new Error(response.statusText);
@@ -22,7 +22,7 @@
             })
             .then(function(responseAsObject) {
                 for (var i=0; i<responseAsObject.length; i++){
-                    resultado.innerHTML += `<li>${responseAsObject[i].title}</li>`
+                    resultado.innerHTML += `<li>${responseAsObject[i].date} ${responseAsObject[i].localName}</li>` 
                 }
             })
             .catch(function(error) {
